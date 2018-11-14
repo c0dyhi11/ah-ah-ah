@@ -1,0 +1,20 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt
+spec:
+  acme:
+    dns01:
+      providers:
+      - name: aws
+        route53:
+          accessKeyID: <aws-access-key>
+          region: <aws-region>
+          secretAccessKeySecretRef:
+            key: <aws-secret-key>
+            name: aws-route53-user
+            namespace: cert-manager
+    email: <letsencrypt-e-mail>
+    privateKeySecretRef:
+      name: letsencrypt
+    server: https://acme-v02.api.letsencrypt.org/directory
